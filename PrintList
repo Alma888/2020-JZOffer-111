@@ -1,0 +1,63 @@
+# 2020-JZOffer-111
+
+//面试题5——从尾到头打印链表
+
+class ListNode{
+    int value;
+    ListNode next;
+    public ListNode(int value){
+        this.value=value;
+        this.next=next;
+    }
+}
+//尾插结点（创建链表）
+public class PrintList {
+    private ListNode head=null;
+
+    public void insertTail(int value){
+        ListNode last=null;
+        if(head==null){
+            head=new ListNode(value);
+        }else {
+            last=head;
+            while (last.next!=null){
+                last=last.next;
+            }
+            last.next=new ListNode(value);
+        }
+
+    }
+    //获得头结点
+    public ListNode getHead(){
+        return head;
+    }
+    /**
+     * 根据题意要打印链表肯定是要遍历链表的，遍历的顺序是从头到尾的顺序，
+     * 可输出的顺序却是从尾到头。也就是第一个遍历到的结点最后一个输出，
+     * 而最后一个遍历到的结点第一个输出。这就是“后进先出”。
+     * 我们可以用——栈——实现这样的顺序。
+     *
+     * @param head 头结点
+     * 利用递归实现逆向输出
+     */
+    //而递归在本质上就是一个栈结构，所以可以用递归来实现
+
+    //反转打印链表
+    public void reversePrint(ListNode head){
+        if(head!=null){
+            if(head.next!=null){
+                reversePrint(head.next);
+            }
+            System.out.printf(head.value+" ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr={1,2,3,4,5,6,7,8};
+        PrintList p=new PrintList();
+        for(int i=0;i<arr.length;i++){
+            p.insertTail(arr[i]);
+        }
+        p.reversePrint(p.getHead());
+    }
+}
